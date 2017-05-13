@@ -8,7 +8,7 @@
 
 1.Download http://antlr.org/download/antlr-4.7-complete.jar.
 
-2.Add antlr4-complete.jar to CLASSPATH
+2.Add antlr-4.7-complete.jar to CLASSPATH(add The file .jar not the parent dir to CLASSPATH)
 
 3.in the same fold,create dir /bin and Create batch commands for ANTLR Tool, TestRig
 
