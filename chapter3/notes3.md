@@ -21,8 +21,25 @@
 ## day4--3.4 Building a Language Application
 本节讲述的是如何构建一个可实现数组翻译为字符串功能的语言应用程序：
 * First，figure out how to convert each input token or phrase to an output string
-* Then, code the translator,这意味着我们要通过重载一部分方法(与具体目的相关的一部分方法，如特定结点的enter、exit方法等)来编写继承了ArrayInitParser接口类的回调函数类ShortToUnicodeString
+* Then, code the translator,这意味着我们要通过重载一部分方法(与具体目的相关的一部分方法，如特定结点的enter、exit方法等)来编写继承了ArrayInitBaseListener接口类的回调函数类ShortToUnicodeString
 * 编写语言应用程序Translate来实现预期目的（启动树遍历器walker,对分析树tree进行遍历，并以ShortToUnicodeString作为回调函数)
 
 ## day5--本章总结
-构建语言应用程序基本流程为：
+构建语言应用程序基本流程为(以名称ArrayInit为例，相关细节见代码)：
+* 编写ArrayInit.g4代码
+* 运行ANTLR生成相关文件，（编译后）进行测试
+```
+antlr4 ArrayInit.g4
+javac *.java
+grun ArrayInit init -tokens //测试模式三种：--token，--tree,--gui
+{99,3,451}
+EOF                         //Ctrl+Z on windows
+```
+* 编写回调函数类ShortToUnicodeString.java实现翻译功能（该类继承自ArrayInitBaseListener接口类）
+* 编写应用程序类Translate.java,完成应用程序构建(并进行编译、调试、测试)：
+```
+javac ArrayInit*.java Translate.java
+java Translate
+{99,3,451}
+EOF
+```

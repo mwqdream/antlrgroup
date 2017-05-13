@@ -26,7 +26,7 @@
 
  ### Have a try:
 
- 1.create a new file Hello4.g4 and type into some code
+ 1.create a new file Hello.g4 and type into some code
  ```
 grammar Hello;
 r : 'hello' ID ;
