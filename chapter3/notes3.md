@@ -31,7 +31,7 @@
 ```
 antlr4 ArrayInit.g4
 javac *.java
-grun ArrayInit init -tokens //测试模式三种：--token，--tree,--gui
+grun ArrayInit init -tokens //init为开始规则,我们可以指定任意一条rule作为开始；测试模式三种：--token，--tree,--gui
 {99,3,451}
 EOF                         //Ctrl+Z on windows
 ```
