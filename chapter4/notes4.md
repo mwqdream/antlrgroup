@@ -4,4 +4,20 @@
 在1-4节通过四个主题的例子展示了ANTLR的特征，第5节是在词法分析层面对ANTLR的特征进行介绍
 
 ## day1--4.1 Matching an Arithmetic Expression Language
-本节介绍的是算术表达式语言匹配的例子
+本节介绍的是算术表达式语言匹配的例子：
+1. 通过可识别t.expr中类似算术表达式的Expr.g4代码的例子，向我们介绍了ANTLR语法规则的一些要点：
+ * Grammars由大量rules组成，分为语法rules和词法rules两种
+ * 语法rules以大写字母开头，词法规则以小写字母开头
+ * 多个可选项以"|"分开;其他如"+","\*","?"我们都很熟悉了
+ * WS rule中，"-> skip"要求词法分析器匹配并舍弃特定字符（如空格、回车、换行等）
+ * 输入串中每一个字符都必须成功匹配（但匹配之后可以舍弃）
+2. ANTLR有处理（大多数种类的）左递归的能力
+3. 通过ExprJoyRide.java的例子，展示了如何使用输入文件来获取待匹配串，并对ANTLR生成的相关文件进行测试使用
+4. Importing Grammars--这种用法很常见也很常用：
+ * 可以将grammar分为lexer grammar和parser grammar作为模块"module"来管理，并通过import语句在需要的时候导入
+ * 使用时只需用antlr4命令及javac命令处理主代码，ANTLR会将代码中指定的模块自动导入
+5. 错误处理机制：
+ * ANTLR能自动报告语法错误并从错误中恢复
+ * ANTLR的错误处理机制具有很大的灵活性，并且用户可以修改错误处理方法、捕获识别异常甚至修改底层的错误处理策略
+
+## day2--4.2 Building a Calculator Using a Visitor
