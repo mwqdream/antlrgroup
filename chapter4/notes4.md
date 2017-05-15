@@ -21,7 +21,12 @@
  * ANTLR的错误处理机制具有很大的灵活性，并且用户可以修改错误处理方法、捕获识别异常甚至修改底层的错误处理策略
 
 ## day2--4.2 Building a Calculator Using a Visitor
-
+本节主要讲的是用Visitor来构建一个计算器，相关的变化有：
+1. g4文件中用"# symbol"来对每一个可选项进行标注，以便ANTLR生成相关代码并在java代码中访问每一个可选项
+2. 同时为操作符定义token名字，这样他们可以作为java常量来访问
+3. 采用visitor模式（指明-no-listener -visitor)
+4. 编写LabeledExprBaseVisitor的子类EvalVisitor，重载所需函数
+5. 编译执行测试代码：
 ```
 antlr4 -no-listener -visitor LabeledExpr.g4
 javac Calc.java LabeledExpr*.java
