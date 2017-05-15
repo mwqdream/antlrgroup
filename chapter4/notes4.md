@@ -21,3 +21,26 @@
  * ANTLR的错误处理机制具有很大的灵活性，并且用户可以修改错误处理方法、捕获识别异常甚至修改底层的错误处理策略
 
 ## day2--4.2 Building a Calculator Using a Visitor
+
+```
+antlr4 -no-listener -visitor LabeledExpr.g4
+javac Calc.java LabeledExpr*.java
+java Calc t.expr
+```
+
+
+
+
+## day3--4.3
+
+
+## day4--4.4
+
+
+## day5--4.5
+
+
+
+## 疑问和待处理
+1. 可以通过import导入lexer grammar,是否可以导入parser grammar，可否导入多个grammar？
+2. secton4.2中clear命令的实现
