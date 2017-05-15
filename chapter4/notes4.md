@@ -33,16 +33,33 @@ javac Calc.java LabeledExpr*.java
 java Calc t.expr
 ```
 
-
-
-
 ## day3--4.3
 
+```
+antlr4 Java.g4
+ls Java*.java
+ls Extract*.java
+javac Java*.java Extract*.java
+java ExtractInterfaceTool Demo.java
+
+```
 
 ## day4--4.4
 
 
 ## day5--4.5
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
