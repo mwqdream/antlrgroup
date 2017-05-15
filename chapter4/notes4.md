@@ -33,8 +33,13 @@ javac Calc.java LabeledExpr*.java
 java Calc t.expr
 ```
 
-## day3--4.3
-
+## day3--4.3 Building a Translator with a Listener
+这一节主要讲的是用Listener来构建翻译器：
+1. 如果想构建一个工具来从一个已定义的java类的方法生成java接口，可以想到的方法有java的反射机制（第一次接触到反射机制是
+有一次需要调用一个受到java保护的类，直接调用不被允许，后来发现了可以使用反射机制）和反编译工具，甚至可以尝试使用字节码库（如ASM。。。虽然这个完全没听说过）；而如果想要保留空格和注释，就now way了
+2. Java.g4这份语法规则代码是作者参考oracle提供的java官方文档编写的（还好给了代码，不然。。。）
+3. 对JavaBaseListener的部分方法进行重载，得到我们所需的ExtractInterfaceListener类
+4. 编译执行测试代码：
 ```
 antlr4 Java.g4
 ls Java*.java
@@ -65,4 +70,5 @@ java ExtractInterfaceTool Demo.java
 
 ## 疑问和待处理
 1. 可以通过import导入lexer grammar,是否可以导入parser grammar，可否导入多个grammar？
-2. secton4.2中clear命令的实现
+2. section4.2中clear命令的实现
+3. section4.3中处理import语句的实现
