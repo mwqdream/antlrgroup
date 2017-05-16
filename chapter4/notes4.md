@@ -73,7 +73,18 @@ grun Data file -tree t.data
 ```
 
 ## day5--4.5 Cool Lexical Features
+```
+antlr4 XMLLexer.g4
+javac XML*.java
+grun XML tokens -tokens t.xml
 
+```
+```
+antlr4 Java.g4
+javac InsertSerialID*.java Java*.java
+java InsertSerialID Demo.java
+
+```
 
 
 
