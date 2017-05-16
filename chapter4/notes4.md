@@ -50,7 +50,19 @@ java ExtractInterfaceTool Demo.java
 ```
 
 ## day4--4.4
+```
+antlr4 -no-listener Rows.g4   #don't need the Listener
+javac Rows*.java Col.java
+java Col 1 < t.rows
+java Col 2 < t.rows
+java Col 3 < t.rows
+```
 
+```
+antlr4 -no-listener Data.g4
+javac Data*.java
+grun Data file -tree t.data
+```
 
 ## day5--4.5
 
