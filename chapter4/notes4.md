@@ -49,7 +49,13 @@ java ExtractInterfaceTool Demo.java
 
 ```
 
-## day4--4.4
+## day4--4.4 Making Things Happen During the Parse
+这一节主要讲的是如何通过在grammars中添加代码片段来将我们想要实现的actions添加到ANTLR自动生成的代码中，并借此
+实现一个将输入数据的指定列输出的程序，在此之后介绍了通过语义谓词来动态控制一个语法规则的某些部分是否执行：
+1. 在grammar中键入任意的actions
+ * 通过自定义构造函数来处理输入参数col
+ * 通过if语句输出指定内容
+ * 编译执行测试：
 ```
 antlr4 -no-listener Rows.g4   #don't need the Listener
 javac Rows*.java Col.java
@@ -57,14 +63,16 @@ java Col 1 < t.rows
 java Col 2 < t.rows
 java Col 3 < t.rows
 ```
-
+2. 使用语义谓词修改语法分析器
+ * 语法谓词{$i<=$n}?--在条件成立(i<=n)时执行后续代码
+ * 编译执行测试：
 ```
 antlr4 -no-listener Data.g4
 javac Data*.java
 grun Data file -tree t.data
 ```
 
-## day5--4.5
+## day5--4.5 Cool Lexical Features
 
 
 
