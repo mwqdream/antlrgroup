@@ -73,29 +73,39 @@ grun Data file -tree t.data
 ```
 
 ## day5--4.5 Cool Lexical Features
+这一节的内容有三部分：
+1. 孤立语法规则：处理同一文件中不同的格式
+  * ANTLR提供了lexical modes这样一种词法分析特性功能，通过让词法分析器在遇到特定的标记字符的时候在不同的
+  模式间进行切换，从而达到更加方便的处理包含混合格式的文件的目的
+  * 以处理XML作为例子，在遇到"<"和">"、"/>"时进行模式切换
+  * grun XML tokens中"tokens"指定以词法分析模式运行（而非语法分析器模式）
+  * 编译执行测试：
 ```
 antlr4 XMLLexer.g4
 javac XML*.java
 grun XML tokens -tokens t.xml
 
 ```
+2. 改写输入流
+  * 改写输入流要做到的是在不影响插入点之外的一切的情况下在原始的token流之中插入特定的内容（如常量域、特定代码行等）
+  这对于源代码植入和重构问题而言是一种有效的解决策略
+  * 对于在java代码中插入serialization变量的例子，只需要重载classbody的enter方法并编写listener代码即可
+  * 编译执行测试：
 ```
 antlr4 Java.g4
 javac InsertSerialID*.java Java*.java
 java InsertSerialID Demo.java
 
 ```
+3. 将tokens传递到不同的通道（sending tokens on different channels)
+  * 通过词法分析器命令"->channel(HIDDEN)"可以将特定的内容（如注释和空格等）传递到HIDDEN通道，语法分析器只处理默认通道（忽略HIDDEN通道中的内容），从而达到保留并忽视注释和空格的目的。
+  * 用法：
+  ```
+  LINE_COMMENT
+      : '//' ~[\r\n]* '\r'? '\n' -> channel(HIDDEN)
+      ;
 
-
-
-
-
-
-
-
-
-
-
+  ```
 
 
 
@@ -103,3 +113,4 @@ java InsertSerialID Demo.java
 1. 可以通过import导入lexer grammar,是否可以导入parser grammar，可否导入多个grammar？
 2. section4.2中clear命令的实现
 3. section4.3中处理import语句的实现
+4. 关于语义谓词
