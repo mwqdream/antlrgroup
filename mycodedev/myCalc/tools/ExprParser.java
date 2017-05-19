@@ -1,4 +1,4 @@
-// Generated from .\tools\Expr.g4 by ANTLR 4.7
+// Generated from tools\Expr.g4 by ANTLR 4.7
 
 package tools;
 import java.util.*;
@@ -20,7 +20,7 @@ public class ExprParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, MUL=4, DIV=5, ADD=6, SUB=7, CLEAR=8, ID=9, INT=10, 
+		T__0=1, T__1=2, T__2=3, MUL=4, DIV=5, ADD=6, SUB=7, CLEAR=8, ID=9, DOUBLE=10, 
 		NEWLINE=11, WS=12;
 	public static final int
 		RULE_stat = 0, RULE_e = 1;
@@ -32,7 +32,7 @@ public class ExprParser extends Parser {
 		null, "'='", "'('", "')'", "'*'", "'/'", "'+'", "'-'"
 	};
 	private static final String[] _SYMBOLIC_NAMES = {
-		null, null, null, null, "MUL", "DIV", "ADD", "SUB", "CLEAR", "ID", "INT", 
+		null, null, null, null, "MUL", "DIV", "ADD", "SUB", "CLEAR", "ID", "DOUBLE", 
 		"NEWLINE", "WS"
 	};
 	public static final Vocabulary VOCABULARY = new VocabularyImpl(_LITERAL_NAMES, _SYMBOLIC_NAMES);
@@ -82,9 +82,9 @@ public class ExprParser extends Parser {
 
 
 	    /** "memory" for our calculator; variable/value pairs go here */
-	    Map<String, Integer> memory = new HashMap<String, Integer>();
+	    Map<String, Double> memory = new HashMap<String, Double>();
 
-	    int eval(int left, int op, int right) {
+	    double eval(double left, int op, double right) {
 	        switch ( op ) {
 	            case MUL : return left * right;
 	            case DIV : return left / right;
@@ -97,9 +97,14 @@ public class ExprParser extends Parser {
 	    void vclear(){
 	        Set<String> keyset = memory.keySet();
 	        for(String id : keyset){
-	            memory.put(id,0);
+	            memory.put(id,0.0);
 	        }
 	        System.out.println("success to clear all");
+	    }
+
+	    double visitDouble(String dtext){
+	        return Double.valueOf(dtext);
+	        //return 0.0;
 	    }
 
 	public ExprParser(TokenStream input) {
@@ -181,14 +186,14 @@ public class ExprParser extends Parser {
 	}
 
 	public static class EContext extends ParserRuleContext {
-		public int v;
+		public double v;
 		public EContext a;
-		public Token INT;
+		public Token DOUBLE;
 		public Token ID;
 		public EContext e;
 		public Token op;
 		public EContext b;
-		public TerminalNode INT() { return getToken(ExprParser.INT, 0); }
+		public TerminalNode DOUBLE() { return getToken(ExprParser.DOUBLE, 0); }
 		public TerminalNode ID() { return getToken(ExprParser.ID, 0); }
 		public List<EContext> e() {
 			return getRuleContexts(EContext.class);
@@ -221,11 +226,11 @@ public class ExprParser extends Parser {
 			setState(29);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case INT:
+			case DOUBLE:
 				{
 				setState(20);
-				((EContext)_localctx).INT = match(INT);
-				((EContext)_localctx).v =  (((EContext)_localctx).INT!=null?Integer.valueOf(((EContext)_localctx).INT.getText()):0);
+				((EContext)_localctx).DOUBLE = match(DOUBLE);
+				((EContext)_localctx).v =  visitDouble((((EContext)_localctx).DOUBLE!=null?((EContext)_localctx).DOUBLE.getText():null));
 				}
 				break;
 			case ID:
@@ -234,7 +239,7 @@ public class ExprParser extends Parser {
 				((EContext)_localctx).ID = match(ID);
 
 				      String id = (((EContext)_localctx).ID!=null?((EContext)_localctx).ID.getText():null);
-				      ((EContext)_localctx).v =  memory.containsKey(id) ? memory.get(id) : 0;
+				      ((EContext)_localctx).v =  memory.containsKey(id) ? memory.get(id) : 0.0;
 				      
 				}
 				break;
