@@ -34,7 +34,7 @@ c
 
 # 我们的工作myCalc
 * 用grammar actions的方法构建计算器
-* 浮点数运算，实现了clear，阶乘，幂运算等
+* 浮点数运算，实现了clear，阶乘，幂运算
 ```
 antlr4 -no-listener tools\Expr.g4
 javac -d . tools\*.java
