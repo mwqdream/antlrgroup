@@ -4,6 +4,7 @@ grammar Expr;
 @header {
 package tools;
 import java.util.*;
+import java.lang.*;
 }
 
 @parser::members {
@@ -16,6 +17,8 @@ import java.util.*;
             case DIV : return left / right;
             case ADD : return left + right;
             case SUB : return left - right;
+            case POW : return Math.pow(left,right);
+            case FAC : return vfac(left);
         }
         return 0;
     }
@@ -31,6 +34,17 @@ import java.util.*;
     double visitDouble(String dtext){
         return Double.valueOf(dtext);
     }
+
+    double vfac(double left){
+        int res=1;
+        int temp=(new Double(left)).intValue();
+        if(temp>0){
+            for(int it=1;it<=temp;it++){
+                res=res*it;
+            }
+        }
+        return (new Integer(res)).doubleValue();
+    }
 }
 
 stat:   e NEWLINE           {System.out.println($e.v);}
@@ -42,6 +56,8 @@ stat:   e NEWLINE           {System.out.println($e.v);}
 e returns [double v]
     : a=e op=('*'|'/') b=e  {$v = eval($a.v, $op.type, $b.v);}
     | a=e op=('+'|'-') b=e  {$v = eval($a.v, $op.type, $b.v);}
+    | a=e op='^' b=e        {$v = eval($a.v, $op.type, $b.v);}
+    | a=e op='!'            {$v = eval($a.v, $op.type, 0.0);}
     | DOUBLE                {$v = visitDouble($DOUBLE.text);}
     | ID
       {
@@ -55,6 +71,9 @@ MUL : '*' ;
 DIV : '/' ;
 ADD : '+' ;
 SUB : '-' ;
+POW : '^' ;
+FAC : '!' ;
+
 
 CLEAR : [Cc][Ll][Ee][Aa][Rr] ;
 
@@ -63,6 +82,6 @@ DOUBLE
     :  '-'? INT '.' [0-9]+
     |  '-'? INT
     ;
-fragment INT :   '0' | [1-9][0-9]* ;         // integers
+fragment INT :   '0' | [1-9][0-9]* ;
 NEWLINE:'\r'? '\n' ;     // return newlines to parser (is end-statement signal)
 WS  :   [ \t]+ -> skip ; // toss out whitespace
