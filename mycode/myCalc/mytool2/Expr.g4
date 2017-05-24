@@ -2,7 +2,7 @@
 grammar Expr;
 
 @header {
-package tools2;
+package mytool2;
 import java.util.*;
 import java.lang.*;
 }
@@ -54,20 +54,29 @@ stat:   e NEWLINE           {System.out.println($e.v);}
     ;
 
 e returns [double v]
-locals [int vleft=0]
     : a=e op=('*'|'/') b=e  {$v = eval($a.v, $op.type, $b.v);}
-    | (a=e {$vleft=$a.v})? op=('+'|'-') b=e  {$v = eval($vleft, $op.type, $b.v);}
+    | a=e op=('+'|'-') b=e  {$v = eval($a.v, $op.type, $b.v);}
     | a=e op='^' b=e        {$v = eval($a.v, $op.type, $b.v);}
     | a=e op='!'            {$v = eval($a.v, $op.type, 0.0);}
-    | DOUBLE                {$v = visitDouble($DOUBLE.text);}
+    | number                {$v = $number.v;}
     | ID
       {
       String id = $ID.text;
       $v = memory.containsKey(id) ? memory.get(id) : 0.0;
       }
+    | '-' ID
+      {
+      String id = $ID.text;
+      $v = memory.containsKey(id) ? -memory.get(id) : 0.0;      
+      }
     | '(' e ')'             {$v = $e.v;}
+    | '-' '(' e ')'         {$v = -$e.v;}
     ;
 
+number returns [double v]
+    : '-' DOUBLE  {$v=-(visitDouble($DOUBLE.text));}
+    | DOUBLE      {$v=visitDouble($DOUBLE.text);}
+    ;
 
 MUL : '*' ;
 DIV : '/' ;

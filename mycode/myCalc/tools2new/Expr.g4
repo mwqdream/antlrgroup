@@ -2,7 +2,7 @@
 grammar Expr;
 
 @header {
-package tools2;
+package tools2new;
 import java.util.*;
 import java.lang.*;
 }
@@ -54,9 +54,9 @@ stat:   e NEWLINE           {System.out.println($e.v);}
     ;
 
 e returns [double v]
-locals [int vleft=0]
     : a=e op=('*'|'/') b=e  {$v = eval($a.v, $op.type, $b.v);}
-    | (a=e {$vleft=$a.v})? op=('+'|'-') b=e  {$v = eval($vleft, $op.type, $b.v);}
+    | a=e op=('+'|'-') b=e  {$v = eval($a.v, $op.type, $b.v);}
+    | op=('+'|'-')     b=e  {$v = eval(0,    $op.type, $b.v);}
     | a=e op='^' b=e        {$v = eval($a.v, $op.type, $b.v);}
     | a=e op='!'            {$v = eval($a.v, $op.type, 0.0);}
     | DOUBLE                {$v = visitDouble($DOUBLE.text);}

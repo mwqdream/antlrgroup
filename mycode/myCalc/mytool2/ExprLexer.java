@@ -1,6 +1,6 @@
-// Generated from tools2\Expr.g4 by ANTLR 4.7
+// Generated from mytool2\Expr.g4 by ANTLR 4.7
 
-package tools2;
+package mytool2;
 import java.util.*;
 import java.lang.*;
 
