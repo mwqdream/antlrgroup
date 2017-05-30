@@ -16,7 +16,7 @@
 本节没什么新内容，就是用-tokens模式、-tree模式和-gui模式测试了一下上节生成的语法分析器
 
 ## day3--3.3 Integrating a Generated Parser into a Java Program
-本节讲述的内容是如何将生成的语法分析器整合到Java程序中，通过Test.java的例子进行详细介绍：
+本节讲述的内容是如何将生成的语法分析器整合到Java程序中，通过Test.java的例子进行详细介绍
 
 ## day4--3.4 Building a Language Application
 本节讲述的是如何构建一个可实现数组翻译为字符串功能的语言应用程序：
@@ -27,14 +27,15 @@
 ## day5--本章总结
 构建语言应用程序基本流程为(以名称ArrayInit为例，相关细节见代码)：
 * 编写ArrayInit.g4代码
-* 运行ANTLR生成相关文件，（编译后）进行测试
+* 运行ANTLR生成相关文件，（编译后）进行测试:
 ```
 antlr4 ArrayInit.g4
 javac *.java
-grun ArrayInit init -tokens //init为开始规则,我们可以指定任意一条rule作为开始；测试模式三种：--token，--tree,--gui
+grun ArrayInit init -tokens //init为开始规则,我们可以指定任意一条rule作为开始；测试模式三种：-token，-tree,-gui
 {99,3,451}
 EOF                         //Ctrl+Z on windows
 ```
+
 * 编写回调函数类ShortToUnicodeString.java实现翻译功能（该类继承自ArrayInitBaseListener接口类）
 * 编写应用程序类Translate.java,完成应用程序构建(并进行编译、调试、测试)：
 ```

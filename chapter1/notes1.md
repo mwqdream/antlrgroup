@@ -6,11 +6,11 @@
 
 ### About install:
 
-1.Download http://antlr.org/download/antlr-4.7-complete.jar.
+1. Download http://antlr.org/download/antlr-4.7-complete.jar.
 
-2.Add antlr-4.7-complete.jar to CLASSPATH(add The file .jar not the parent dir to CLASSPATH)
+2. Add antlr-4.7-complete.jar to CLASSPATH(add The file .jar not the parent dir to CLASSPATH)
 
-3.in the same fold,create dir /bin and Create batch commands for ANTLR Tool, TestRig
+3. in the same fold,create dir /bin and Create batch commands for ANTLR Tool, TestRig
 
  /bin/antlr4.bat:
  ```
@@ -24,9 +24,9 @@
 
  Then add /bin to PATH
 
- ### Have a try:
+### Have a try:
 
- 1.create a new file Hello.g4 and type into some code
+1. create a new file Hello.g4 and type into some code
  ```
 grammar Hello;
 r : 'hello' ID ;
@@ -34,12 +34,12 @@ ID : [a-z]+ ;
 WS : [ \t\r\n]+ -> skip;
  ```
 
- 2.run antlr and compile:
+2. run antlr and compile:
 ```
 antlr4 Hello.g4
 javac *.java
 ```
-3.test:
+3. test:
 ```
 grun Hello r -tokens  #start TestRig on grammar Hello at rule r
 #grun Hello r -tree   #show a tree
