@@ -46,7 +46,7 @@ c
   ```
 
   * 方法二测试结果：
-![figure002][img002]
+    ![figure002](../resource/img002.png)
 
 ## 我们的工作myCalc--见myCalc
 * 用grammar actions的方法构建计算器
@@ -61,10 +61,10 @@ java tools.Calc
 
 ```
 * 结果1：
-![figure003][img003]
+  ![figure003](../resource/img003.png)
 * 结果2(乘方、clear等):
 
-    ![figure004][img004]
+    ![figure004](../resource/img004.png)
 
 
 
@@ -146,7 +146,7 @@ EOF                   #type Ctrl+Z on windows
 本章节的主要内容是关于如何使用语法分析树来构建语言应用程序，相关要点如下：
 * 构建语言应用程序需要对输入的短语执行适当的代码=>最简单的方法就是在语法分析器自动生成的语法分析树上进行操作=>回到了java领域（不必学习更为深入的ANTLR语法知识）
 * 通过一张图示对语法分析过程中的要素与ANTLR中的java类之间的对应关系（包括CharStream,Lexer,Token,Parser,ParseTree等，以及连接词法分析和语法分析的管道--TokenStream）
-![diagrme][img241]
+  ![diagrme](../resource/img241.png)
 * 对RuleNode和TerminalNode(ParseTree的子类)进行了详细介绍
 * 介绍了context对象的概念和相关内容
 * 通过对分析树的遍历，我们可以对树节点进行我们所需要的操作（包括计算结果、更新数据结构、生成输出）；然而我们不必每次去写重复的树遍历代码，我们可以使用ANTLR自动生成的树遍历机制
@@ -158,14 +158,14 @@ ANTLR通过内置的遍历器walker提供了两种树遍历机制Listener和Visi
 * Listener是基于回调机制的（对事件的处理，一般的java语言或者python语言程序采用的都是回调机制；QT开发平台对事件的处理声称采用的是信号-槽机制--至少我们用QT的时候看起来似乎是这样的）
 * 每一条rule都有相对应的enter和exit方法（回调机制的基础）
 * 图示1：
-![figure251][img251]
+  ![figure251](../resource/img251.png)
 * 图示2：
-![figure252][img252]
+  ![figure252](../resource/img252.png)
 * Listener机制的美丽之处在于其是全自动的（我们不必去写分析树walker，同样listener也不必去明确地访问其子节点）
 
 关于Visitors：
 * Visitor用于访问操作指定的树节点（包括context node，terminalnode等），图示：
-![figure253][img253]
+  ![figure253](../resource/img253.png)
 * 使用方法：
 ```
 ParseTree tree=...; //tree is result of parsing
@@ -178,7 +178,7 @@ v.visit(tree);
 本章通过一个简单的ANTLR项目来学习ANTLR的基础用法：
 * Java语言由.java得到.class文件时将short类型数组翻译为字符串来避免相关的限制
 * 本章所要完成的项目就是简单的实现上述目的
-在本章末尾，对项目流程进行了总结。
+  在本章末尾，对项目流程进行了总结。
 
 ## day1--3.1 The ANTLR Tool,Runtime,and Generated Code
 本节对ANTLR的相关概念进行介绍，展示了语言应用构建的第一步--创建语法规则，并对之运行ANTLR：
@@ -259,7 +259,7 @@ java Calc t.expr
 ## day3--4.3 Building a Translator with a Listener
 这一节主要讲的是用Listener来构建翻译器：
 1. 如果想构建一个工具来从一个已定义的java类的方法生成java接口，可以想到的方法有java的反射机制（第一次接触到反射机制是
-有一次需要调用一个受到java保护的类，直接调用不被允许，后来发现了可以使用反射机制）和反编译工具，甚至可以尝试使用字节码库（如ASM。。。虽然这个完全没听说过）；而如果想要保留空格和注释，就now way了
+  有一次需要调用一个受到java保护的类，直接调用不被允许，后来发现了可以使用反射机制）和反编译工具，甚至可以尝试使用字节码库（如ASM。。。虽然这个完全没听说过）；而如果想要保留空格和注释，就now way了
 2. Java.g4这份语法规则代码是作者参考oracle提供的java官方文档编写的（还好给了代码，不然。。。）
 3. 对JavaBaseListener的部分方法进行重载，得到我们所需的ExtractInterfaceListener类
 4. 编译执行测试代码：
@@ -298,7 +298,7 @@ grun Data file -tree t.data
 这一节的内容有三部分：
 1. 孤立语法规则：处理同一文件中不同的格式
   * ANTLR提供了lexical modes这样一种词法分析特性功能，通过让词法分析器在遇到特定的标记字符的时候在不同的
-  模式间进行切换，从而达到更加方便的处理包含混合格式的文件的目的
+    模式间进行切换，从而达到更加方便的处理包含混合格式的文件的目的
   * 以处理XML作为例子，在遇到"<"和">"、"/>"时进行模式切换
   * grun XML tokens中"tokens"指定以词法分析模式运行（而非语法分析器模式）
   * 编译执行测试：
@@ -310,7 +310,7 @@ grun Data file -tree t.data
 
 2. 改写输入流
   * 改写输入流要做到的是在不影响插入点之外的一切的情况下在原始的token流之中插入特定的内容（如常量域、特定代码行等）
-  这对于源代码植入和重构问题而言是一种有效的解决策略
+    这对于源代码植入和重构问题而言是一种有效的解决策略
   * 对于在java代码中插入serialization变量的例子，只需要重载classbody的enter方法并编写listener代码即可
   * 编译执行测试：
   ```
@@ -350,7 +350,7 @@ grun CSV file -tokens data.csv
 
 ```
 * 结果：
-![figure610][img610]
+  ![figure610](../resource/img610.png)
 
 ## 6.2 Parsing JSON
 * 测试运行：
@@ -362,7 +362,7 @@ grun JSON json -gui t.json
 
 ```
 * 结果：
-![figure620][img620]
+  ![figure620](../resource/img620.png)
 
 ## 6.3 Parsing DOT
 * 测试运行：
@@ -374,7 +374,7 @@ grun DOT graph -gui t.dot
 
 ```
 * 结果：
-![figure630][img630]
+  ![figure630](../resource/img630.png)
 
 ## 6.4 Parsing Cymbol
 * 测试运行：
@@ -386,7 +386,7 @@ grun Cymbol file -gui t.cymbol
 
 ```
 * 结果：
-![figure640][img640]
+  ![figure640](../resource/img640.png)
 
 ## 6.5 Parsing R
 * 测试运行：
@@ -397,14 +397,13 @@ javc R*.java
 grun R prog -gui t.R
 //javac TestR.java R*.java
 //java TestR t.R
-
 ```
 * 结果：
-![figure650][img650]
+  ![figure650](../resource/img650.png)
 
 ## 疑问
 1. section6.5 tree.inspect找不到符号,该函数是在java代码中使用gui模式展示语法分析结果，但是在当前版本中该函数可能被
-替换为新的用法了，在网上搜了很多也查看了ANTLR的API文档，始终没有找到解决方法就先放弃了
+  替换为新的用法了，在网上搜了很多也查看了ANTLR的API文档，始终没有找到解决方法就先放弃了
 
 
 
@@ -517,23 +516,7 @@ parser.setBuildParseTree(false);          // don't need trees
         line++;
     }
 }
-
 ```
 ## day2--10.2 Accessing Token and Rule Attributes
 这一节提供了更多的Actions用法，包括局部变量locals[],重载初始化方法'@init{}',规则结束后的行为'@after{}'等，详细内容不再赘述。
 
-
-
-
-[img002]: ../resource/img002.png "figure0-0-2"
-[img003]: ../resource/img003.png "figure0-0-3"
-[img004]: ../resource/img004.png "figure0-0-4"
-[img241]: ../resource/img241.png "figure2-4-1"
-[img251]: ../resource/img251.png "figure2-5-1"
-[img252]: ../resource/img252.png "figure2-5-2"
-[img253]: ../resource/img253.png "figure2-5-3"
-[img610]: ../resource/img610.png "figure6-1-0"
-[img620]: ../resource/img620.png "figure6-2-0"
-[img630]: ../resource/img630.png "figure6-3-0"
-[img640]: ../resource/img640.png "figure6-4-0"
-[img650]: ../resource/img650.png "figure6-5-0"
