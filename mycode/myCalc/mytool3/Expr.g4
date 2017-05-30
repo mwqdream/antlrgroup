@@ -57,7 +57,7 @@ e returns [double v]
     : a=e op=('*'|'/') b=e  {$v = eval($a.v, $op.type, $b.v);}
     | a=e op=('+'|'-') b=e  {$v = eval($a.v, $op.type, $b.v);}
     | a=e op='^' b=e        {$v = eval($a.v, $op.type, $b.v);}
-    | a=e op='!'            {$v = eval($a.v, $op.type, 0.0);}
+    | a=e op='!'            {$v = eval($a.v, $op.type, 0.0); System.out.println($a.tokens)}
     | number                {$v = $number.v;}
     | ID
       {
