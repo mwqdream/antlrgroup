@@ -9,6 +9,8 @@
 ## GitHub
 ANTLR学习的相关笔记及相关代码托管于我的GitHub项目[antlrgroup](https://github.com/mwqdream/antlrgroup)
 
+
+
 # 问题及解决
 ***
 这一部分是最后添加的关于阅读过程中的一些问题的解决方法。
@@ -151,7 +153,7 @@ EOF                   #type Ctrl+Z on windows
 * 介绍了context对象的概念和相关内容
 * 通过对分析树的遍历，我们可以对树节点进行我们所需要的操作（包括计算结果、更新数据结构、生成输出）；然而我们不必每次去写重复的树遍历代码，我们可以使用ANTLR自动生成的树遍历机制
 
-### day5--2.5 Parse-Tree Listeners And Visitors
+## day5--2.5 Parse-Tree Listeners And Visitors
 ANTLR通过内置的遍历器walker提供了两种树遍历机制Listener和Visitor，在本节的最后对语法分析相关的术语概念进行了总结。
 
 关于Listeners：
@@ -500,17 +502,16 @@ int line = 1;                             // track input expr line numbers
 * 示例代码：
 
 ```
-ExprParser parser = new ExprParser(null); // share single parser instance
-parser.setBuildParseTree(false);          // don't need trees
+ExprParser parser = new ExprParser(null); 
+parser.setBuildParseTree(false);          
 
-    while ( expr!=null ) {             // while we have more expressions
-        // create new lexer and token stream for each line (expression)
+    while ( expr!=null ) {             
         ANTLRInputStream input = new ANTLRInputStream(expr+"\n");
         ExprLexer lexer = new ExprLexer(input);
-        lexer.setLine(line);           // notify lexer of input position
+        lexer.setLine(line); 
         lexer.setCharPositionInLine(0);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        parser.setInputStream(tokens); // notify parser of new token stream
+        parser.setInputStream(tokens); 
         parser.stat();                 // start the parser
         expr = br.readLine();          // see if there's another line
         line++;
