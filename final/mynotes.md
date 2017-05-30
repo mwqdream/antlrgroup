@@ -1,3 +1,14 @@
+# 编译原理读书笔记
+## 学院：计算机科学与技术学院
+## 班级：2014级 1班
+## 姓名：孟维桥
+## 学号：3014216013
+## 内容：
+学习笔记包括两部分，第一部分ANLTR书籍内容（放在了后面），第一部分遇到的问题及解决方法（放到了前面），书籍的阅读开始于5月5日，学习笔记的记录开始于5月6日。
+书籍的阅读包括第1,2,3,4,5,6,10章，书籍的其他部分也进行了略读但未作记录。
+## GitHub
+ANTLR学习的相关笔记及相关代码托管于我的GitHub项目[antlrgroup](https://github.com/mwqdream/antlrgroup)
+
 # 问题及解决
 ***
 这一部分是最后添加的关于阅读过程中的一些问题的解决方法。
@@ -7,7 +18,7 @@
 1. 可以通过import导入lexer grammar,是否可以导入parser grammar，可否导入多个grammar？
 2. section4.2中clear命令的实现
 
-## 解决--mycode
+## 解决--见mycode
 1. 一个g4文件可以声明为grammar、lexer grammar、parser grammar三种，统一通过import G1(,G2,...)导入(注：import这条命令只可以出现一次,有些死板...)，测试代码为mycode1/main.g4，编译运行测试如下：
 ```
 antlr4 main.g4
@@ -37,7 +48,7 @@ c
   * 方法二测试结果：
 ![figure002][img002]
 
-## 我们的工作myCalc
+## 我们的工作myCalc--见myCalc
 * 用grammar actions的方法构建计算器
 * 浮点数运算，实现了clear，阶乘，幂运算等
 * 处理负数运算
